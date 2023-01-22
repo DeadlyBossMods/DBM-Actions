@@ -1,0 +1,8 @@
+name: 'Deadly Boss Mods Action'
+description: 'GitHub Actions for Deadly Boss Mods'
+branding:
+    color: 'purple'
+    icon: 'code'
+runs:
+    using: 'node16'
+    main: 'index.js'
