@@ -74,9 +74,9 @@ const processFile = (file) => {
 	lines.forEach(line => {
 		line = line.trim();
 
-		if (line === '--[[') { // Comment start
+		if (line.startsWith('--[[')) { // Comment start
 			skipComment = true
-		} else if (line === '--]]') { // Comment end
+		} else if (line.endsWith('--]]')) { // Comment end
 			skipComment = false;
 		} else if (skipComment || line.startsWith('--')) { // Comment line
 			// Do nothing
