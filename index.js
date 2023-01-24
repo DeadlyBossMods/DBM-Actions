@@ -16,8 +16,10 @@ const
 	// Cross-references: `mod.EVENT1 = mod.EVENT2`
 	REGEX_CROSS_REFERENCE = /^mod\.(.*?)\s?=\s?mod\.(.*?)$/i,
 
-	// Function start: `function mod:EVENT
+	// Function start: `function mod:EVENT`
 	REGEX_FUNCTION = /^function mod:(\w+)/i,
+	// Local function: `local function `
+	REGEX_LOCAL_FUNCTION = /^local function /i,
 	// SpellID equals
 	REGEX_SPELLID_EQUALS = /spellid == (\d+)/ig,
 	// SpellID function
@@ -80,6 +82,8 @@ const processFile = (file) => {
 			// Do nothing
 		} else if (line.match(REGEX_FUNCTION)) { // Starting a function
 			lastFunction = line.match(REGEX_FUNCTION)[1];
+		} else if (line.match(REGEX_LOCAL_FUNCTION)) { // Starting a local function
+			lastFunction = null;
 		} else if (lastFunction) { // Inside a function, check for SpellID usage
 			if (lastFunction.toLowerCase().startsWith('unit_') || skipFunctions.indexOf(lastFunction) !== -1) {
 				return;
