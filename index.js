@@ -23,7 +23,7 @@ const
 	// SpellID equals
 	REGEX_SPELLID_EQUALS = /spellid == (\d+)/ig,
 	// SpellID function
-	REGEX_SPELLID_FUNC = /IsSpellID\(([^)]+)\)/ig
+	REGEX_SPELLID_FUNC = /(IsSpellID|IsSpell)\(([^)]+)\)/ig
 ;
 
 const processFile = (file) => {
@@ -96,7 +96,7 @@ const processFile = (file) => {
 				}
 			});
 			[...line.matchAll(REGEX_SPELLID_FUNC)].forEach(_match => {
-				_match[1].replaceAll(',', '').split(' ').forEach(spellID => {
+				_match[2].replaceAll(',', '').split(' ').forEach(spellID => {
 					if ( !registeredEvents[lastFunction]) {
 						failed.push(`Event isn\'t registered: ${lastFunction}\t${spellID}`);
 					} else if (registeredEvents[lastFunction].length > 0 && registeredEvents[lastFunction].indexOf(spellID) === -1) {
